@@ -11,36 +11,54 @@ const routes = [
     component: Home
   },
   {
-    //动态路由
-    path: '/about/:uname/id/:id', 
+    path: '/about',
     name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/dongtai.vue'),
-   },
-    {
-      path: '/qiantao/',
-      component: () => import('../views/qiantao.vue'),
-      children:[
-        {
-          path: 'p1',//  /public/p1  * 不要加 /不然就不匹配
-          component: () => import('../views/p1.vue')
-        },
-        {
-          path: 'p2',
-          component: () => import('../views/p2.vue')
-        },
-        //如果进入/public下没有指定的children,默认添加一个组件，可以在path上写个''
-        // {
-        //   path:'',
-        //   component: () => import('../views/p3.vue')
-        // }
-      ]
-    },
-   
-  ]
-  const router = new VueRouter({
+    meta:{reg:true},
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '/public',
+    name: 'public',
+    component: () => import('../views/public.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login.vue'),
+  }
+
+]
+
+import {islogin} from '../api/api';
+const router = new VueRouter({
   mode: 'history',
-  //base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach(async (to,from,next)=>{
+  //在每次切换路由的时候，切换过去的路由需不需要验证，如果需要
+  const b = to.matched.some(item=>item.meta.reg);
+  if(b){
+    //需要验证
+    let flg = await islogin(); //需要就请求验证接口
+    //校验成功
+    if(flg){
+      next();
+    }else{
+      //校验失败
+      next('/login');
+    }
+
+  }else{
+    //不需要验证，该跳跳你的
+    next();
+  }
+  // console.log(to.matched)
+ 
 })
+
+
+
 
 export default router

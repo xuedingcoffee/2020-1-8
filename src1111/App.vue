@@ -1,19 +1,17 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/" tag="button">home</router-link>
-      <router-link to="/about" tag="button">about</router-link>
-      <router-link to="/login" tag="button">login</router-link>
-      <router-link to="/public" tag="button">public</router-link>
+   <router-link to="/about/nizp/id/1">About1</router-link>
+    <router-link to="/about/ds/id/2">About2</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+       <router-link to="/qiantao">qiantao</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
 <style>
-/* .active{
-  background:yellow
-} */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

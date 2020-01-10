@@ -7,8 +7,10 @@
     -->
    <!-- <router-link to="/about/1">About1</router-link>
       <router-link to="/about/2">About1</router-link>-->
-    用户:{{$route.params.uname}}
+    <!--用户:{{$route.params.uname}}
   <h2 v-if="$route.params.id == 1">欢迎老大回来</h2>
- <p v-if="$route.params.id == 2">小弟辛苦了</p>
+ <p v-if="$route.params.id == 2">小弟辛苦了</p>-->
+
+  <router-view />
   </div>
 </template>
